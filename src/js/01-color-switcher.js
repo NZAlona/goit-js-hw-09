@@ -16,12 +16,15 @@ function onStartBtnClick() {
     const randomColorPicker = getRandomHexColor();
     body.style.background = randomColorPicker;
   }, 1000);
-  btnStart.setAttribute('disabled', true);
-  btnStop.removeAttribute('disabled');
+  enableDisableBtns(btnStop, btnStart);
 }
 
 function onStopBtnClick() {
   clearInterval(timerId);
-  btnStart.removeAttribute('disabled');
-  btnStop.setAttribute('disabled', true);
+  enableDisableBtns(btnStart, btnStop);
+}
+
+function enableDisableBtns(btn1, btn2) {
+  btn1.removeAttribute('disabled');
+  btn2.setAttribute('disabled', true);
 }

@@ -19,7 +19,7 @@ flatpickr(myInput, {
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
-    if (selectedDates[0] < new Date()) {
+    if (selectedDates[0] < Date.now()) {
       btnStart.disabled = true;
       Notiflix.Notify.warning('Please choose a date in the future');
     } else {
@@ -31,20 +31,24 @@ flatpickr(myInput, {
 
 function onBtnClick() {
   const timeInterval = setInterval(function () {
-    const dateNow = new Date();
+    const dateNow = Date.now();
     let timeDifference = countDownDate - dateNow;
 
     let msObject = convertMs(timeDifference);
 
-    daysToChange.textContent = addLeadingZero(msObject.days);
-    hoursToChange.textContent = addLeadingZero(msObject.hours);
-    minutesToChange.textContent = addLeadingZero(msObject.minutes);
-    secondsToChange.textContent = addLeadingZero(msObject.seconds);
+    initialisationOfTime(msObject);
 
-    if (timeDifference < 0) {
+    if (timeDifference < 1000) {
       clearInterval(timeInterval);
     }
   }, 1000);
+}
+
+function initialisationOfTime({ days, hours, minutes, seconds }) {
+  daysToChange.textContent = addLeadingZero(days);
+  hoursToChange.textContent = addLeadingZero(hours);
+  minutesToChange.textContent = addLeadingZero(minutes);
+  secondsToChange.textContent = addLeadingZero(seconds);
 }
 
 function addLeadingZero(value) {
